@@ -1,6 +1,7 @@
 #include "Particle.h"
 
 using namespace KamataEngine;
+using namespace MathUtility;
 Particle::~Particle()
 {
 }
@@ -20,7 +21,11 @@ void Particle::Initialize(Model* model)
 
 void Particle::Update()
 {
-	worldTransform_.TransferMatrix(); //ワールド変形の更新
+	//移動
+	worldTransform_.translation_ += {0.0f, 0.1f, 0.0f}; //移動量の設定
+	
+	//行列を更新
+	worldTransform_.UpdateMatrix(); 
 
 	objectColor_.SetColor(color_); //オブジェクトカラーの設定
 }
