@@ -1,7 +1,7 @@
 #pragma once
 #include "KamataEngine.h"
 #include <iostream>
-using namespace KamataEngine;
+
 class Particle
 {
 public:
@@ -9,28 +9,28 @@ public:
 	~Particle();
 
 	//初期化
-	void Initialize(Model* model,Vector3 position, Vector3 velocity);
+	void Initialize(KamataEngine::Model* model,KamataEngine::Vector3 position, KamataEngine::Vector3 velocity);
 
 	//更新
 	void Update();
 
 	//描画
-	void Draw(Camera& camera);
+	void Draw(KamataEngine::Camera& camera);
 
 	bool IsFinished() {
 		std::cout << "isFinished_:" << isFinished_ << std::endl;
 		return isFinished_;
 	}
 private:
-	WorldTransform worldTransform_; //ワールド変形
+	KamataEngine::WorldTransform worldTransform_; //ワールド変形
 
-	Model* model_ = nullptr; //3Dモデルデータ
+	KamataEngine::Model* model_ = nullptr; //3Dモデルデータ
 
-	ObjectColor objectColor_; //オブジェクトカラー
+	KamataEngine::ObjectColor objectColor_; //オブジェクトカラー
 
-	Vector4 color_; //色の数値
+	KamataEngine::Vector4 color_; //色の数値
 
-	Vector3 velocity_ ; //速度の初期化
+	KamataEngine::Vector3 velocity_ ; //速度の初期化
 
 	bool isFinished_ = false; //終了フラグ
 
