@@ -19,5 +19,9 @@ private:
 	WorldTransform worldTransform_; //ワールド変形
 
 	Model* model_ = nullptr; //3Dモデルデータ
+
+	//ObjectColor objectColor_; //オブジェクトカラー
+
+	//Vector4 color_; //色の数値
 };
 
