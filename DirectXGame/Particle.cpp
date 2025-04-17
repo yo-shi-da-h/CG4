@@ -1,5 +1,5 @@
 #include "Particle.h"
-
+#include <algorithm>
 using namespace KamataEngine;
 using namespace MathUtility;
 Particle::~Particle()
@@ -23,11 +23,23 @@ void Particle::Initialize(Model* model, Vector3 position, Vector3 velocity)
 	velocity_ = velocity; //速度の初期化
 
 	//大きさ
-	worldTransform_.scale_ = {0.2f, 0.2f, 0.2f}; 
+	worldTransform_.scale_ = {0.5f, 0.5f, 0.5f}; 
 }
 
 void Particle::Update()
 {
+
+	if(isFinished_) {
+		return; //終了フラグが立っている場合は何もしない
+	}
+
+	counter_ += 1.0f / 60.0f; //カウンターの更新
+
+	if (counter_ >= kDuration) {
+		counter_ = kDuration; 
+		isFinished_ = true; //カウンターが指定時間を超えたら終了フラグを立てる
+	}
+
 	//移動
 	worldTransform_.translation_ += velocity_; //移動量の設定
 	
@@ -35,6 +47,8 @@ void Particle::Update()
 	worldTransform_.UpdateMatrix(); 
 
 	objectColor_.SetColor(color_); //オブジェクトカラーの設定
+
+	color_.w = std::clamp(1.0f - counter_ / kDuration, 0.0f, 1.0f); //色の透明度を設定
 }
 
 void Particle::Draw(Camera& camera)

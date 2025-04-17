@@ -41,12 +41,6 @@ void GameScene::Initialize()
 		velocity *= distribution(randomEngine); //速度の設定
 		velocity *= 0.1f; //速度のスケーリング
 	}
-
-	//Vector3 position = {0.0f, 0.0f, 0.0f}; //パーティクルの位置
-
-	////パーティクルの初期化
-	//particle_->Initialize(modelParticle_, {0.0f, 0.0f, 0.0f});
-
 	
 }
 
@@ -56,6 +50,14 @@ void GameScene::Update()
 	for(Particle* particle : particles_) {
 		particle->Update();
 	}
+
+	particles_.remove_if([](Particle* particle) {
+		if(particle->IsFinished()) {
+			delete particle; //終了したパーティクルを削除
+			return true; //リストから削除する
+		}
+		return false; //リストに残す
+	});
 }
 
 void GameScene::Draw()
