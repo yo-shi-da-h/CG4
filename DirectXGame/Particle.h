@@ -8,7 +8,7 @@ public:
 	~Particle();
 
 	//初期化
-	void Initialize(Model* model,Vector3 position);
+	void Initialize(Model* model,Vector3 position, Vector3 velocity);
 
 	//更新
 	void Update();
@@ -23,5 +23,7 @@ private:
 	ObjectColor objectColor_; //オブジェクトカラー
 
 	Vector4 color_; //色の数値
+
+	Vector3 velocity_ ; //速度の初期化
 };
 

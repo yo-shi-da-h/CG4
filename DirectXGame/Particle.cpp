@@ -6,7 +6,7 @@ Particle::~Particle()
 {
 }
 
-void Particle::Initialize(Model* model, Vector3 position)
+void Particle::Initialize(Model* model, Vector3 position, Vector3 velocity)
 {
 	assert(model);
 
@@ -19,12 +19,17 @@ void Particle::Initialize(Model* model, Vector3 position)
 	color_ = {1.0f, 1.0f, 0.0f, 1.0f}; //色の初期化
 
 	worldTransform_.translation_ = position; //ワールド変形の位置を設定
+
+	velocity_ = velocity; //速度の初期化
+
+	//大きさ
+	worldTransform_.scale_ = {0.2f, 0.2f, 0.2f}; 
 }
 
 void Particle::Update()
 {
 	//移動
-	worldTransform_.translation_ += {0.0f, 0.1f, 0.0f}; //移動量の設定
+	worldTransform_.translation_ += velocity_; //移動量の設定
 	
 	//行列を更新
 	worldTransform_.UpdateMatrix(); 
