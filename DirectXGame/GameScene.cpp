@@ -48,12 +48,8 @@ void GameScene::Update()
 	std::mt19937 randomEngine(seedGenerator());
 	std::uniform_real_distribution<float> distribution(-1.0f, 1.0f);
 
-
-	Vector3 position = {distribution(randomEngine)* 30.0f, distribution(randomEngine)*20.0f, 0};
-
 	if (rand() % 40 == 0) {
-		//std::cout << "ParticleBorn" << std::endl;
-		//std::cout << "position:" << position.x << "," << position.y << "," << position.z << std::endl;
+		Vector3 position = {distribution(randomEngine)* 30.0f, distribution(randomEngine)*20.0f, 0};
 		ParticleBorn(position); //パーティクルの発生
 
 	}
