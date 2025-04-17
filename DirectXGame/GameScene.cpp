@@ -7,7 +7,9 @@ using namespace KamataEngine;
 GameScene::~GameScene()
 {
 	delete modelParticle_;
-	delete particle_;	
+	for(Particle* particle : particles_) {
+		delete particle;
+	}
 }
 
 void GameScene::Initialize()
@@ -19,16 +21,29 @@ void GameScene::Initialize()
 	camera_.Initialize();
 
 	//パーティクルの生成
-	particle_ = new Particle();
+	for (int i = 0; i < 150; i++) {
+		//生成
+		Particle* particle = new Particle();
+		//位置
+		Vector3 position = {0.5f * i, 0.0f, 0.0f};
+		//初期化
+		particle->Initialize(modelParticle_, position);
+		//リストに追加
+		particles_.push_back(particle);
+	}
 
-	//パーティクルの初期化
-	particle_->Initialize(modelParticle_);
+	//Vector3 position = {0.0f, 0.0f, 0.0f}; //パーティクルの位置
+
+	////パーティクルの初期化
+	//particle_->Initialize(modelParticle_, {0.0f, 0.0f, 0.0f});
 }
 
 void GameScene::Update()
 {
 	//パーティクルの更新
-	particle_->Update();
+	for(Particle* particle : particles_) {
+		particle->Update();
+	}
 }
 
 void GameScene::Draw()
@@ -38,7 +53,10 @@ void GameScene::Draw()
 	//描画開始
 	Model::PreDraw(dxCommon->GetCommandList());
 	//パーティクルの描画
-	particle_->Draw(camera_); //カメラを引数に渡す
+	for (Particle* particle : particles_) {
+		particle->Draw(camera_);
+	}
+	
 	//描画終了
 	Model::PostDraw();
 }

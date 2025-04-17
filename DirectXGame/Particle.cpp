@@ -6,7 +6,7 @@ Particle::~Particle()
 {
 }
 
-void Particle::Initialize(Model* model)
+void Particle::Initialize(Model* model, Vector3 position)
 {
 	assert(model);
 
@@ -17,6 +17,8 @@ void Particle::Initialize(Model* model)
 	objectColor_.Initialize(); //オブジェクトカラーの初期化
 
 	color_ = {1.0f, 1.0f, 0.0f, 1.0f}; //色の初期化
+
+	worldTransform_.translation_ = position; //ワールド変形の位置を設定
 }
 
 void Particle::Update()
