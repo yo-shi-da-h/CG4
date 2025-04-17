@@ -20,8 +20,8 @@ private:
 
 	Model* model_ = nullptr; //3Dモデルデータ
 
-	//ObjectColor objectColor_; //オブジェクトカラー
+	ObjectColor objectColor_; //オブジェクトカラー
 
-	//Vector4 color_; //色の数値
+	Vector4 color_; //色の数値
 };
 
