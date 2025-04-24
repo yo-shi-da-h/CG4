@@ -6,29 +6,29 @@ using namespace KamataEngine;
 
 GameScene::~GameScene()
 {
-	delete modelParticle_;
-	delete particle_;	
+	delete modelEffect_;
+	delete effect_;
 }
 
 void GameScene::Initialize()
 {
 	//3Dモデルデータの生成
-	modelParticle_ = Model::CreateSphere(4,4);
+	modelEffect_ = Model::CreateFromOBJ("hishigata",true);
 
 	//カメラの初期化
 	camera_.Initialize();
 
-	//パーティクルの生成
-	particle_ = new Particle();
+	//エフェクトの生成
+	effect_ = new Effect();
 
-	//パーティクルの初期化
-	particle_->Initialize(modelParticle_);
+	//エフェクトの初期化
+	effect_->Initialize(modelEffect_);
 }
 
 void GameScene::Update()
 {
-	//パーティクルの更新
-	particle_->Update();
+	//エフェクトの更新
+	effect_->Update();
 }
 
 void GameScene::Draw()
@@ -37,8 +37,8 @@ void GameScene::Draw()
 
 	//描画開始
 	Model::PreDraw(dxCommon->GetCommandList());
-	//パーティクルの描画
-	particle_->Draw(camera_); //カメラを引数に渡す
+	//エフェクトの描画
+	effect_->Draw(camera_); //カメラを引数に渡す
 	//描画終了
 	Model::PostDraw();
 }
