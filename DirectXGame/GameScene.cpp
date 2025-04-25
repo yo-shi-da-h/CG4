@@ -1,5 +1,5 @@
 #include "GameScene.h"
-
+#include "random"
 using namespace KamataEngine;
 
 
