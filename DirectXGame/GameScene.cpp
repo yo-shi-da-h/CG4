@@ -1,7 +1,7 @@
 #include "GameScene.h"
 #include "random"
 using namespace KamataEngine;
-
+using namespace MathUtility;
 
 
 GameScene::~GameScene()
@@ -12,11 +12,6 @@ GameScene::~GameScene()
 
 void GameScene::Initialize()
 {
-
-	std::random_device seedGenerator;
-	std::mt19937 randomEngine(seedGenerator()); // メルセンヌツイスタの初期化
-	std::uniform_real_distribution<float> distribution(1.0f, 2.0f); // -1.0から1.0の範囲で乱数を生成
-
 	//3Dモデルデータの生成
 	modelEffect_ = Model::CreateFromOBJ("hishigata",true);
 
@@ -26,8 +21,26 @@ void GameScene::Initialize()
 	//エフェクトの生成
 	effect_ = new Effect();
 
-	//エフェクトの初期化
-	effect_->Initialize(modelEffect_);
+	
+
+	std::random_device seedGenerator;
+	std::mt19937 randomEngine(seedGenerator()); // メルセンヌツイスタの初期化
+	std::uniform_real_distribution<float> distribution(2.0f, 3.0f); // 1.0から2.0の範囲で乱数を生成
+
+	for (int i = 0; i < 10; i++)
+	{
+		
+		Vector3 position = { 0, distribution(randomEngine), distribution(randomEngine) };
+
+		//エフェクトの初期化
+	    effect_->Initialize(modelEffect_, position); //3Dモデルデータと位置を指定
+
+		//Normalize(position); // ベクトルを正規化
+		//position *= distribution(randomEngine); // ベクトルの長さをランダムに変更
+
+	}
+
+	
 }
 
 void GameScene::Update()

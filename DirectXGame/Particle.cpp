@@ -16,6 +16,8 @@ void Particle::Initialize(Model* model)
 	//objectColor_.Initialize(); //オブジェクトカラーの初期化
 
 	//color_ = {1.0f, 1.0f, 0.0f, 1.0f}; //色の初期化
+
+	
 }
 
 void Particle::Update()
