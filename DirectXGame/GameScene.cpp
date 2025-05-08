@@ -12,6 +12,11 @@ GameScene::~GameScene()
 
 void GameScene::Initialize()
 {
+
+	std::random_device seedGenerator;
+	std::mt19937 randomEngine(seedGenerator()); // メルセンヌツイスタの初期化
+	std::uniform_real_distribution<float> distribution(1.0f, 2.0f); // -1.0から1.0の範囲で乱数を生成
+
 	//3Dモデルデータの生成
 	modelEffect_ = Model::CreateFromOBJ("hishigata",true);
 
