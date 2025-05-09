@@ -13,7 +13,7 @@ GameScene::~GameScene()
 void GameScene::Initialize()
 {
 	//3Dモデルデータの生成
-	modelEffect_ = Model::CreateFromOBJ("hishigata",true);
+	modelEffect_ = Model::CreateSphere(2,2);
 
 	//カメラの初期化
 	camera_.Initialize();
