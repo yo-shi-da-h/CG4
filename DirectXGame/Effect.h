@@ -9,7 +9,7 @@ class Effect
 	~Effect();
 
 	//初期化
-	void Initialize(Model* model, Vector3 position);
+	void Initialize(Model* model, Vector3 Scale, Vector3 Rotate);
 
 	//更新
 	void Update();

@@ -4,7 +4,7 @@ Effect::~Effect()
 {
 }
 
-void Effect::Initialize(Model* model, Vector3 position)
+void Effect::Initialize(Model* model, Vector3 Scale, Vector3 Rotate)
 {
 	assert(model);
 
@@ -12,14 +12,14 @@ void Effect::Initialize(Model* model, Vector3 position)
 
 	worldTransform_.Initialize(); //ワールド変形の初期化
 
-	worldTransform_.translation_ = position; //ワールド変形の位置の特定
+	worldTransform_.rotation_ = Rotate; //回転
 
-	worldTransform_.scale_ = {1.0f, 1.0f, 1.0f}; //大きさ
+	worldTransform_.scale_ = Scale; //大きさ
 }
 
 void Effect::Update()
 {
-	worldTransform_.TransferMatrix(); //ワールド変形の更新
+	worldTransform_.UpdateMatrix(); //ワールド変形の更新
 }
 
 void Effect::Draw(Camera& camera)

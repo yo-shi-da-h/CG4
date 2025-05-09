@@ -13,7 +13,7 @@ GameScene::~GameScene()
 void GameScene::Initialize()
 {
 	//3Dモデルデータの生成
-	modelEffect_ = Model::CreateSphere(2,2);
+	modelEffect_ = Model::CreateFromOBJ("hishigata", true);
 
 	//カメラの初期化
 	camera_.Initialize();
@@ -25,22 +25,17 @@ void GameScene::Initialize()
 
 	std::random_device seedGenerator;
 	std::mt19937 randomEngine(seedGenerator()); // メルセンヌツイスタの初期化
-	std::uniform_real_distribution<float> distribution(2.0f, 3.0f); // 1.0から2.0の範囲で乱数を生成
+	std::uniform_real_distribution<float> distribution(0.0f, 2.0f); // 0.0から2.0の範囲で乱数を生成
+	std::uniform_real_distribution<float> rotate(-3.0f, 3.0f); // -3.0から3.0の範囲で乱数を生成
 
-	for (int i = 0; i < 10; i++)
-	{
-		
-		Vector3 position = { 0, distribution(randomEngine), distribution(randomEngine) };
+	Vector3 scale = { 1.0f, distribution(randomEngine) * 10, 1.0f };
 
-		//エフェクトの初期化
-	    effect_->Initialize(modelEffect_, position); //3Dモデルデータと位置を指定
+	Vector3 rotation = {0.0f, 0.0f, rotate(randomEngine)};
 
-		//Normalize(position); // ベクトルを正規化
-		//position *= distribution(randomEngine); // ベクトルの長さをランダムに変更
+	//エフェクトの初期化
+	   effect_->Initialize(modelEffect_, scale,rotation); //3Dモデルデータと位置を指定
 
-	}
-
-	
+	srand((unsigned)time(NULL)); // 乱数の初期化
 }
 
 void GameScene::Update()
