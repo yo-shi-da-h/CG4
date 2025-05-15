@@ -1,24 +1,31 @@
 #pragma once
+
 #include <KamataEngine.h>
-
 using namespace KamataEngine;
-class Effect
-{
-	public:
-	//デストラクタ
-	~Effect();
+class Effect {
+public:
+	/// <summary>
+	/// 初期化
+	/// </summary>
+	/// <param name="model">モデル</param>
+	/// <param name="position">位置</param>
+	/// <param name="velocity">移動量</param>
+	void Initialize(Model* model,Vector3 position);
 
-	//初期化
-	void Initialize(Model* model, Vector3 Scale, Vector3 Rotate);
-
-	//更新
+	/// <summary>
+	/// 更新
+	/// </summary>
 	void Update();
 
-	//描画
+	/// <summary>
+	/// 描画
+	/// </summary>
+	/// <param name="camera">カメラ</param>
 	void Draw(Camera& camera);
+
 private:
-	WorldTransform worldTransform_; //ワールド変形
-
-	Model* model_ = nullptr; //3Dモデルデータ
+	// ワールド変換データ
+	WorldTransform worldTransform_;
+	// モデル
+	Model* model_ = nullptr;
 };
-
