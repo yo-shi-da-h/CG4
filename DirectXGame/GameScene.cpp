@@ -7,7 +7,10 @@ using namespace MathUtility;
 GameScene::~GameScene()
 {
 	delete modelEffect_;
-	delete effect_;
+	for (Effect* effect : effects_) {
+		delete effect; //エフェクトの解放
+	}
+	effects_.clear(); //エフェクトのリストをクリア
 }
 
 void GameScene::Initialize()
@@ -55,7 +58,9 @@ void GameScene::Draw()
 	//描画開始
 	Model::PreDraw(dxCommon->GetCommandList());
 	//エフェクトの描画
-	effect_->Draw(camera_); //カメラを引数に渡す
+	for (Effect* effect : effects_) {
+		effect->Draw(camera_); //カメラを引数に渡す
+	}
 	//描画終了
 	Model::PostDraw();
 }
