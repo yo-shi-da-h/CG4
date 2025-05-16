@@ -97,6 +97,14 @@ void GameScene::Update() {
 	for(Effect* effect : effects_){
 		effect->Update();
 	}
+
+	effects_.remove_if([](Effect* efffect) {
+		if(efffect->IsFinished()) {
+			delete efffect; //終了したパーティクルを削除
+			return true; //リストから削除する
+		}
+		return false; //リストに残す
+	});
 }
 
 void GameScene::Draw() {
