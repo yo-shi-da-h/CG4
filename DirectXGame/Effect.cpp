@@ -3,9 +3,6 @@
 #include <algorithm>
 using namespace KamataEngine;
 
-std::random_device seedGenerator;
-std::mt19937 randomEngine(seedGenerator());
-std::uniform_real_distribution<float> distributo(0.0f, 10.0f);
 
 
 void Effect::Initialize(Model* model,Vector3 position) {
@@ -17,6 +14,11 @@ void Effect::Initialize(Model* model,Vector3 position) {
     objectColor_.Initialize(); //オブジェクトカラーの初期化
 
     color_ = {1.0f, 1.0f, 1.0f, 1.0f}; //色の初期化
+
+    std::random_device seedGenerator;
+    std::mt19937 randomEngine(seedGenerator());
+    std::uniform_real_distribution<float> distributo(0.0f, 10.0f);
+
 
     // 大きさ（スケール）のY軸を変更（例：3倍）
     worldTransform_.scale_ = {1.0f, distributo(randomEngine), 1.0f};
@@ -56,3 +58,5 @@ void Effect::Draw(Camera& camera) {
 	// 3Dモデルを描画
 	model_->Draw(worldTransform_, camera ,&objectColor_);
 }
+
+

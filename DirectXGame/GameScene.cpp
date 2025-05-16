@@ -1,10 +1,12 @@
 #include "GameScene.h"
-
+#include "random"
 
 
 using namespace KamataEngine;
 using namespace MathUtility;
-
+std::random_device seedGenerator;
+    std::mt19937 randomEngine(seedGenerator());
+    std::uniform_real_distribution<float> distributo(-1.0f, 1.0f);
 GameScene::~GameScene() {
 	// 3Dモデルデータの解放
 	//delete modelParticle_;
@@ -44,6 +46,25 @@ GameScene::~GameScene() {
 //	}
 //}
 
+void GameScene::EffectBorn(Vector3 position) {
+	// エフェクトの生成
+	for (int i = 0; i < 10; i++) {
+		// 生成
+		Effect* effect = new Effect();
+		// 位置
+		Vector3 position_ = {0.0f,0.0f,0.0f};
+
+		position_ = position;
+		
+		// 初期化
+		effect->Initialize(modelEffect_,position);
+		// リストに追加
+		effects_.push_back(effect);
+	}
+	// 乱数の初期化
+	srand((unsigned)time(NULL));
+}
+
 void GameScene::Initialize() {
 	// 3Dモデルデータの生成
 	//modelEffect_ = Model::CreateSphere(2, 2);
@@ -51,47 +72,12 @@ void GameScene::Initialize() {
 
 	// カメラの初期化
 	camera_.Initialize();
-
-	// エフェクトの生成
-	for (int i = 0; i < 10; i++) {
-		// 生成
-		Effect* effect = new Effect();
-		// 位置
-		Vector3 position = {0.0f,0.0f,0.0f};
-		
-		// 初期化
-		effect->Initialize(modelEffect_,position);
-		// リストに追加
-		effects_.push_back(effect);
-	}
-
-	// 乱数の初期化
-	srand((unsigned)time(NULL));
+	
+	
 }
 
 void GameScene::Update() { 
-	// 確率で発生
-	//if (rand() % 20 == 0) {
-	//	// 発生位置は乱数
-	//	Vector3 position = {distribution(randomEngine) * 30.0f, distribution(randomEngine) * 20.0f, 0};
-
-	//	// パーティクル発生
-	//	ParticleBorn(position);
-	//}
-
-	// パーティクルの更新
-	/*for(Particle* particle : particles_){
-		particle->Update();
-	}*/
-
-	// 終了フラグの立ったパーティクルを削除
-	/*particles_.remove_if([](Particle* particle) {
-		if (particle->IsFinished()) {
-			delete particle;
-			return true;
-		}
-		return false;
-	});*/
+	
 
 	// エフェクトの更新
 	for(Effect* effect : effects_){
@@ -105,6 +91,15 @@ void GameScene::Update() {
 		}
 		return false; //リストに残す
 	});
+
+	if (rand() % 10 == 0) {
+		Vector3 position = {distributo(randomEngine)* 30.0f, distributo(randomEngine)*2.0f, 0};
+	    EffectBorn(position); //パーティクルの発生
+
+	}
+	
+
+	
 }
 
 void GameScene::Draw() {
@@ -127,3 +122,4 @@ void GameScene::Draw() {
 	// 3Dモデル描画後処理
 	Model::PostDraw();
 }
+

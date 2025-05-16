@@ -14,6 +14,8 @@ public:
 	// 描画
 	void Draw();
 
+	void EffectBorn(Vector3 position);
+
 	~GameScene();
 
 	/// <summary>

@@ -24,6 +24,8 @@ public:
 	/// <param name="camera">カメラ</param>
 	void Draw(Camera& camera);
 
+	
+
 	bool IsFinished() {
 		std::cout << "isFinished_:" << isFinished_ << std::endl;
 		return isFinished_;
