@@ -46,4 +46,5 @@ private:
 	float counter_ = 0.0f; //カウンター
 
 	const float kDuration = 1.0f; //時間の初期化
+
 };

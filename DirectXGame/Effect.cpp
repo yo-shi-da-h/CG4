@@ -1,9 +1,10 @@
 #include "Effect.h"
 #include <random>
 #include <algorithm>
+
 using namespace KamataEngine;
 
-
+using namespace MathUtility;
 
 void Effect::Initialize(Model* model,Vector3 position) {
 	// NULLポインタチェック
@@ -11,25 +12,25 @@ void Effect::Initialize(Model* model,Vector3 position) {
     model_ = model;
     worldTransform_.Initialize();
 
-    objectColor_.Initialize(); //オブジェクトカラーの初期化
-
-    color_ = {1.0f, 1.0f, 1.0f, 1.0f}; //色の初期化
-
     std::random_device seedGenerator;
     std::mt19937 randomEngine(seedGenerator());
-    std::uniform_real_distribution<float> distributo(0.0f, 10.0f);
+    std::uniform_real_distribution<float> distributo(1.0f, 10.0f);
+    std::uniform_real_distribution<float> color(1.0f,10.0f);
 
+    objectColor_.Initialize(); //オブジェクトカラーの初期化
+
+    color_ = {color(randomEngine), color(randomEngine), color(randomEngine), 1.0f}; //色の初期化
 
     // 大きさ（スケール）のY軸を変更（例：3倍）
     worldTransform_.scale_ = {1.0f, distributo(randomEngine), 1.0f};
-
+    
     // 回転（Z軸）を30度に設定（度→ラジアンに変換）
     worldTransform_.rotation_ = {
        0.0f,                              // X軸
        0.0f,                              // Y軸
         distributo(randomEngine) // Z軸
     };
-
+    
     worldTransform_.translation_ = position;
 }
 

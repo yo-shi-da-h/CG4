@@ -6,7 +6,7 @@ using namespace KamataEngine;
 using namespace MathUtility;
 std::random_device seedGenerator;
     std::mt19937 randomEngine(seedGenerator());
-    std::uniform_real_distribution<float> distributo(-1.0f, 1.0f);
+    std::uniform_real_distribution<float> distributoin(-1.0f, 1.0f);
 GameScene::~GameScene() {
 	// 3Dモデルデータの解放
 	//delete modelParticle_;
@@ -78,7 +78,11 @@ void GameScene::Initialize() {
 
 void GameScene::Update() { 
 	
+	if (rand() % 10 == 0) {
+		Vector3 position = {distributoin(randomEngine)* 30.0f, distributoin(randomEngine)*20.0f, 0};
+	    EffectBorn(position); //パーティクルの発生
 
+	}
 	// エフェクトの更新
 	for(Effect* effect : effects_){
 		effect->Update();
@@ -91,13 +95,6 @@ void GameScene::Update() {
 		}
 		return false; //リストに残す
 	});
-
-	if (rand() % 10 == 0) {
-		Vector3 position = {distributo(randomEngine)* 30.0f, distributo(randomEngine)*2.0f, 0};
-	    EffectBorn(position); //パーティクルの発生
-
-	}
-	
 
 	
 }
